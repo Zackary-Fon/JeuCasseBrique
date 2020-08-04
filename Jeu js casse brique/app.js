@@ -1,3 +1,4 @@
+//Toutes les variables
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var ballRadius = 10;
@@ -28,9 +29,13 @@ for(var c=0; c<brickColumnCount; c++) {
   }
 }
 
+//Récupération des appuis sur les touches et des mouvements de la sourie
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
+
+//Fonction qui vérifie si les touches ont été préssées
 
 function keyDownHandler(e) {
     if(e.key == "Right" || e.key == "ArrowRight") {
@@ -50,12 +55,15 @@ function keyUpHandler(e) {
     }
 }
 
+//fonction qui vérifie si la souris a bougé
+
 function mouseMoveHandler(e) {
   var relativeX = e.clientX - canvas.offsetLeft;
   if(relativeX > 0 && relativeX < canvas.width) {
     paddleX = relativeX - paddleWidth/2;
   }
 }
+//fonction qui detecte les collisions
 function collisionDetection() {
   for(var c=0; c<brickColumnCount; c++) {
     for(var r=0; r<brickRowCount; r++) {
@@ -74,7 +82,7 @@ function collisionDetection() {
     }
   }
 }
-
+//Dessine la balle
 function drawBall() {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, Math.PI*2);
@@ -82,6 +90,7 @@ function drawBall() {
   ctx.fill();
   ctx.closePath();
 }
+//Dessine la raquette
 function drawPaddle() {
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
@@ -89,6 +98,7 @@ function drawPaddle() {
   ctx.fill();
   ctx.closePath();
 }
+//Dessine les briques
 function drawBricks() {
   for(var c=0; c<brickColumnCount; c++) {
     for(var r=0; r<brickRowCount; r++) {
@@ -106,17 +116,19 @@ function drawBricks() {
     }
   }
 }
+//Le score
 function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#0095DD";
   ctx.fillText("Score: "+score, 8, 20);
 }
+//Les vies
 function drawLives() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#0095DD";
   ctx.fillText("Lives: "+lives, canvas.width-65, 20);
 }
-
+//Permet de tout rassembler et de gérer le rebondissement
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBricks();
